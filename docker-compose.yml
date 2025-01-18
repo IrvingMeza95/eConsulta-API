@@ -109,7 +109,7 @@ services:
       - config-server
       - eureka-server
       - servicioUsuarios
-  gatewayServer:d
+  gatewayServer:
     image: irvingmeza95/econsulta-gateway-server:v1
     ports:
       - "8080:8080"
