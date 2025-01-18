@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS econsulta_db;
+CREATE DATABASE IF NOT EXISTS econsulta_db_archivos_db;
