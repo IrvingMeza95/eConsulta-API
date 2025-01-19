@@ -8,7 +8,7 @@ services:
     networks:
       - econsulta
   eureka-server:
-    image: irvingmeza95/econsulta-eureka-server:v1
+    image: irvingmeza95/eureka-server:v1
     ports:
       - "8761:8761"
     restart: always
@@ -119,12 +119,6 @@ services:
     depends_on:
       - config-server
       - eureka-server
-      - servicioUsuarios
-      - servicioVerificacion
-      - filesManagerService
-      - servicioOauth
-      # - servicioChats
-      # - wsChatsServer
 
 networks:
     econsulta:
