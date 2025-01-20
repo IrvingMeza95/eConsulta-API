@@ -40,6 +40,7 @@ services:
       - config-server
       - eureka-server
       - mysql8
+      - gatewayServer
   filesManagerService:
     image: irvingmeza95/econsulta-files-manager-service:v1
     # ports:
