@@ -1,82 +1,70 @@
 version: '3.7'
+
 services:
+  mysql8:
+    image: irvingmeza95/mysql:8
+    ports:
+      - "3307:3306"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - econsulta
+    environment:
+      MYSQL_ROOT_PASSWORD: sasa
+      # MYSQL_DATABASE: econsulta_db
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   config-server:
     image: irvingmeza95/econsulta-config-server:v1
     ports:
       - "8888:8888"
-    restart: always
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
   eureka-server:
     image: irvingmeza95/eureka-server:v1
     ports:
       - "8761:8761"
-    restart: always
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
     depends_on:
       - config-server
-  mysql8:
-    image: irvingmeza95/mysql:8
-    ports:
-      - "3307:3306"
-    restart: always
-    networks:
-      - econsulta
-    environment:
-      MYSQL_ROOT_PASSWORD: sasa
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   servicioUsuarios:
     image: irvingmeza95/econsulta-servicio-usuarios:v1
     # ports:
     #   - "8000:8000"
     deploy:
       replicas: 1
-    restart: always
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
     depends_on:
       - config-server
       - eureka-server
       - mysql8
-      - gatewayServer
-  filesManagerService:
-    image: irvingmeza95/econsulta-files-manager-service:v1
-    # ports:
-    #   - "8001:8001"
-    deploy:
-      replicas: 1
-    restart: always
-    networks:
-      - econsulta
-    depends_on:
-      - config-server
-      - eureka-server
-      - servicioUsuarios
-      - mysql8
-  servicioChats:
-    image: irvingmeza95/econsulta-servicio-chats:v1
-    # ports:
-    #   - "8002:8002"
-    deploy:
-      replicas: 1
-    restart: always
-    networks:
-      - econsulta
-    depends_on:
-      - config-server
-      - eureka-server
-      - servicioUsuarios
-      - wsChatsServer
-      - mysql8
+      - gatewayServer 
   servicioVerificacion:
     image: irvingmeza95/econsulta-servicio-verificacion:v1
     # ports:
     #   - "8003:8003"
+    environment:
+      - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
+      - GMAIL_CLIENT_SECRET=${GMAIL_CLIENT_SECRET}
+      - GMAIL_REFRESH_TOKEN=${GMAIL_REFRESH_TOKEN}
     deploy:
       replicas: 1
-    restart: always
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
     depends_on:
@@ -84,26 +72,14 @@ services:
       - eureka-server
       - servicioUsuarios
       - mysql8
-  wsChatsServer:
-    image: irvingmeza95/econsulta-ws-chats-server:v1
-    # ports:
-    #   - "8081:8081"
-    deploy:
-      replicas: 1
-    restart: always
-    networks:
-      - econsulta
-    depends_on:
-      - config-server
-      - eureka-server
-      - servicioUsuarios
   servicioOauth:
     image: irvingmeza95/econsulta-servicio-oauth:v1
     # ports:
     #   - "9100:9100"
     deploy:
       replicas: 1
-    restart: always
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
     depends_on:
@@ -114,7 +90,10 @@ services:
     image: irvingmeza95/econsulta-gateway-server:v1
     ports:
       - "8080:8080"
-    restart: always
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
     networks:
       - econsulta
     depends_on:
@@ -122,4 +101,14 @@ services:
       - eureka-server
 
 networks:
-    econsulta:
+     econsulta:
+# networks:
+#   econsulta:
+#     driver: overlay
+# secrets:
+#   GMAIL_CLIENT_ID:
+#     external: true
+#   GMAIL_CLIENT_SECRET:
+#     external: true
+#   GMAIL_REFRESH_TOKEN:
+#     external: true
