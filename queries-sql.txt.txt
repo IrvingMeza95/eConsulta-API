@@ -1,0 +1,24 @@
+/*Query para insertar los roles*/
+INSERT INTO econsulta_db.roles (id, nombre) 
+VALUES 
+    (1, 'ROLE_ADMIN'),
+    (2, 'ROLE_USER');
+    
+/*query para insertar los tipos de servicio predeterminados*/
+INSERT INTO econsulta_db.tipos_de_servicios (id, nombre) 
+VALUES
+    (1, 'Consultas generales'),
+    (2, 'Consultas especializadas'),
+    (3, 'Exámenes médicos'),
+    (4, 'Cirugías'),
+    (5, 'Terapias y tratamientos varios');
+
+/*query para insertar turnos predeterminados*/
+INSERT INTO econsulta_db.turnos (id, enabled,horario) 
+VALUES 
+(1,1,'8-9'),
+(2,1,'9-10'),
+(3,1,'10-11'),
+(4,1,'11-12'),
+(5,1,'12-13'),
+(6,1,'13-14');

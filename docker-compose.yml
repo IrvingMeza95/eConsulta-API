@@ -104,6 +104,22 @@ services:
       - eureka-server
       - servicioUsuarios
       - mysql8
+  servicioConsultas:
+    image: irvingmeza95/econsulta-servicio-consultas:v1
+    ports:
+      - "8010:8010"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    restart: always
+    networks:
+      - econsulta
+    depends_on:
+      - config-server
+      - eureka-server
+      - servicioUsuarios
+      - mysql8
 
 networks:
      econsulta:
