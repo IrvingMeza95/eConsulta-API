@@ -2,7 +2,8 @@
 INSERT INTO econsulta_db.roles (id, nombre) 
 VALUES 
     (1, 'ROLE_ADMIN'),
-    (2, 'ROLE_USER');
+    (2, 'ROLE_USER'),
+    (3, 'ROLE_SUPER_ADMIN');
     
 /*query para insertar los tipos de servicio predeterminados*/
 INSERT INTO econsulta_db.tipos_de_servicios (id, nombre) 

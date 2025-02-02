@@ -55,8 +55,6 @@ services:
       - eureka-server
   servicioOauth:
     image: irvingmeza95/econsulta-servicio-oauth:v1
-    # ports:
-    #   - "9100:9100"
     deploy:
       replicas: 1
       restart_policy:
@@ -70,8 +68,6 @@ services:
       - servicioUsuarios
   servicioUsuarios:
     image: irvingmeza95/econsulta-servicio-usuarios:v1
-    # ports:
-    #   - "8000:8000"
     deploy:
       replicas: 1
       restart_policy:
@@ -84,10 +80,9 @@ services:
       - eureka-server
       - mysql8
       - gatewayServer 
+      - servicioVerificacion
   servicioVerificacion:
     image: irvingmeza95/econsulta-servicio-verificacion:v1
-    # ports:
-    #   - "8003:8003"
     environment:
       - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
       - GMAIL_CLIENT_SECRET=${GMAIL_CLIENT_SECRET}
@@ -102,12 +97,9 @@ services:
     depends_on:
       - config-server
       - eureka-server
-      - servicioUsuarios
       - mysql8
   servicioConsultas:
     image: irvingmeza95/econsulta-servicio-consultas:v1
-    ports:
-      - "8010:8010"
     deploy:
       replicas: 1
       restart_policy:
@@ -122,8 +114,6 @@ services:
       - mysql8
   fileManagerService:
     image: irvingmeza95/econsulta-file-manager-service:v1
-    ports:
-      - "8005:8005"
     deploy:
       replicas: 1
       restart_policy:
