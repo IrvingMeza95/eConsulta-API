@@ -22,3 +22,12 @@ VALUES
 (4,1,'11-12'),
 (5,1,'12-13'),
 (6,1,'13-14');
+
+/*query para insertar serviicos predeterminados*/
+INSERT INTO econsulta_db.servicios_medicos (id, descripcion, enabled,precio,tipo_servicio_id) 
+VALUES 
+(1,'Consulta general',1,25,1),
+(2,'Consulta en cardiologia',1,150,2),
+(3,'Consulta en optanmologia',1,100,2),
+(4,'Examnes de sangre',1,15,3),
+(5,'Examenes de la vista',1,10,3);

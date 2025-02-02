@@ -120,6 +120,23 @@ services:
       - eureka-server
       - servicioUsuarios
       - mysql8
+  fileManagerService:
+    image: irvingmeza95/econsulta-file-manager-service:v1
+    ports:
+      - "8005:8005"
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    restart: always
+    networks:
+      - econsulta
+    depends_on:
+      - config-server
+      - eureka-server
+      - servicioUsuarios
+      - servicioConsultas
+      - mysql8
 
 networks:
      econsulta:
