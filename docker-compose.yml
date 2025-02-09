@@ -127,6 +127,6 @@ services:
       - servicioUsuarios
       - servicioConsultas
       - mysql8
-
+      
 networks:
      econsulta:
