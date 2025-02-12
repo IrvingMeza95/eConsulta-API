@@ -17,6 +17,8 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   config-server:
     image: irvingmeza95/econsulta-config-server:v1
+    mem_limit: 382m 
+    mem_reservation: 256m 
     ports:
       - "8888:8888"
     deploy:
@@ -28,12 +30,10 @@ services:
       - econsulta
   eureka-server:
     image: irvingmeza95/eureka-server:v1
+    mem_limit: 382m 
+    mem_reservation: 256m 
     ports:
       - "8761:8761"
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     restart: always
     networks:
       - econsulta
@@ -41,12 +41,10 @@ services:
       - config-server
   gatewayServer:
     image: irvingmeza95/econsulta-gateway-server:v1
+    mem_limit: 382m 
+    mem_reservation: 256m 
     ports:
       - "8080:8080"
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     restart: always
     networks:
       - econsulta
@@ -55,10 +53,8 @@ services:
       - eureka-server
   servicioOauth:
     image: irvingmeza95/econsulta-servicio-oauth:v1
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    mem_limit: 319m 
+    mem_reservation: 256m 
     restart: always
     networks:
       - econsulta
@@ -68,10 +64,8 @@ services:
       - servicioUsuarios
   servicioUsuarios:
     image: irvingmeza95/econsulta-servicio-usuarios:v1
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    mem_limit: 512m 
+    mem_reservation: 256m 
     restart: always
     networks:
       - econsulta
@@ -83,14 +77,12 @@ services:
       - servicioVerificacion
   servicioVerificacion:
     image: irvingmeza95/econsulta-servicio-verificacion:v1
+    mem_limit: 382m 
+    mem_reservation: 256m 
     environment:
       - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
       - GMAIL_CLIENT_SECRET=${GMAIL_CLIENT_SECRET}
       - GMAIL_REFRESH_TOKEN=${GMAIL_REFRESH_TOKEN}
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
     restart: always
     networks:
       - econsulta
@@ -100,10 +92,8 @@ services:
       - mysql8
   servicioConsultas:
     image: irvingmeza95/econsulta-servicio-consultas:v1
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    mem_limit: 512m 
+    mem_reservation: 256m 
     restart: always
     networks:
       - econsulta
@@ -114,10 +104,8 @@ services:
       - mysql8
   fileManagerService:
     image: irvingmeza95/econsulta-file-manager-service:v1
-    deploy:
-      replicas: 1
-      restart_policy:
-        condition: on-failure
+    mem_limit: 382m 
+    mem_reservation: 256m 
     restart: always
     networks:
       - econsulta
@@ -127,6 +115,39 @@ services:
       - servicioUsuarios
       - servicioConsultas
       - mysql8
-      
+  
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   container_name: cadvisor
+  #   ports:
+  #     - "8088:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #     - /sys:/sys:ro
+  #     - /var/lib/docker/:/var/lib/docker:ro
+  #   restart: always
+
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   container_name: prometheus
+  #   ports:
+  #     - "9090:9090"
+  #   volumes:
+  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
+  #   command:
+  #     - "--config.file=/etc/prometheus/prometheus.yml"
+  #   restart: always
+
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   container_name: grafana
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #   - grafana-data:/var/lib/grafana
+  #   restart: always
+
 networks:
      econsulta:
+# volumes:
+#   grafana-data:
