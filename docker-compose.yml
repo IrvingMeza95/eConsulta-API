@@ -15,8 +15,21 @@ services:
       MYSQL_ROOT_PASSWORD: sasa
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis
+  #   mem_limit: 256m 
+  #   mem_reservation: 128m 
+  #   restart: always
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis_data:/data
+  #   networks:
+  #     - econsulta
   config-server:
     image: irvingmeza95/econsulta-config-server:v1
+    container_name: config-server
     mem_limit: 382m 
     mem_reservation: 256m 
     ports:
@@ -30,6 +43,7 @@ services:
       - econsulta
   eureka-server:
     image: irvingmeza95/eureka-server:v1
+    container_name: eureka-server
     mem_limit: 382m 
     mem_reservation: 256m 
     ports:
@@ -41,6 +55,7 @@ services:
       - config-server
   gatewayServer:
     image: irvingmeza95/econsulta-gateway-server:v1
+    container_name: gatewayServer
     mem_limit: 382m 
     mem_reservation: 256m 
     ports:
@@ -53,6 +68,7 @@ services:
       - eureka-server
   servicioOauth:
     image: irvingmeza95/econsulta-servicio-oauth:v1
+    container_name: servicioOauth
     mem_limit: 319m 
     mem_reservation: 256m 
     restart: always
@@ -64,6 +80,7 @@ services:
       - servicioUsuarios
   servicioUsuarios:
     image: irvingmeza95/econsulta-servicio-usuarios:v1
+    container_name: servicioUsuarios
     mem_limit: 512m 
     mem_reservation: 256m 
     restart: always
@@ -78,6 +95,7 @@ services:
   servicioVerificacion:
     image: irvingmeza95/econsulta-servicio-verificacion:v1
     mem_limit: 382m 
+    container_name: servicioVerificacion
     mem_reservation: 256m 
     environment:
       - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
@@ -92,6 +110,7 @@ services:
       - mysql8
   servicioConsultas:
     image: irvingmeza95/econsulta-servicio-consultas:v1
+    container_name: servicioConsultas
     mem_limit: 512m 
     mem_reservation: 256m 
     restart: always
@@ -104,6 +123,7 @@ services:
       - mysql8
   fileManagerService:
     image: irvingmeza95/econsulta-file-manager-service:v1
+    container_name: fileManagerService
     mem_limit: 382m 
     mem_reservation: 256m 
     restart: always
@@ -115,39 +135,8 @@ services:
       - servicioUsuarios
       - servicioConsultas
       - mysql8
-  
-  # cadvisor:
-  #   image: gcr.io/cadvisor/cadvisor:latest
-  #   container_name: cadvisor
-  #   ports:
-  #     - "8088:8080"
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock:ro
-  #     - /sys:/sys:ro
-  #     - /var/lib/docker/:/var/lib/docker:ro
-  #   restart: always
-
-  # prometheus:
-  #   image: prom/prometheus:latest
-  #   container_name: prometheus
-  #   ports:
-  #     - "9090:9090"
-  #   volumes:
-  #     - ./prometheus.yml:/etc/prometheus/prometheus.yml
-  #   command:
-  #     - "--config.file=/etc/prometheus/prometheus.yml"
-  #   restart: always
-
-  # grafana:
-  #   image: grafana/grafana:latest
-  #   container_name: grafana
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #   - grafana-data:/var/lib/grafana
-  #   restart: always
 
 networks:
      econsulta:
 # volumes:
-#   grafana-data:
+#   redis_data:
