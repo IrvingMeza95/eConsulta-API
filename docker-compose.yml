@@ -12,14 +12,15 @@ services:
     networks:
       - econsulta
     environment:
-      MYSQL_ROOT_PASSWORD: sasa
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   # redis:
-  #   image: redis:latest
+  #   image: redis:7.0
   #   container_name: redis
   #   mem_limit: 256m 
   #   mem_reservation: 128m 
+  #   command: redis-server --bind 0.0.0.0 --protected-mode no
   #   restart: always
   #   ports:
   #     - "6379:6379"
