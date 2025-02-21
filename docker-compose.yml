@@ -15,6 +15,12 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
   # redis:
   #   image: redis:7.0
   #   container_name: redis
@@ -85,6 +91,8 @@ services:
     mem_limit: 512m 
     mem_reservation: 256m 
     restart: always
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - econsulta
     depends_on:
@@ -98,11 +106,13 @@ services:
     mem_limit: 382m 
     container_name: servicioVerificacion
     mem_reservation: 256m 
+
     environment:
       - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
       - GMAIL_CLIENT_SECRET=${GMAIL_CLIENT_SECRET}
       - GMAIL_REFRESH_TOKEN=${GMAIL_REFRESH_TOKEN}
       - CORREO_GMAIL=${CORREO_GMAIL}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     restart: always
     networks:
       - econsulta
@@ -116,6 +126,8 @@ services:
     mem_limit: 512m 
     mem_reservation: 256m 
     restart: always
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - econsulta
     depends_on:
@@ -129,6 +141,8 @@ services:
     mem_limit: 382m 
     mem_reservation: 256m 
     restart: always
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     networks:
       - econsulta
     depends_on:
@@ -140,5 +154,6 @@ services:
 
 networks:
      econsulta:
-# volumes:
+volumes:
+  mysql_data:
 #   redis_data:
