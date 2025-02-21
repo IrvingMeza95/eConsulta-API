@@ -3,6 +3,7 @@ version: '3.7'
 services:
   mysql8:
     image: irvingmeza95/mysql:8
+    container_name: mysql8
     ports:
       - "3307:3306"
     deploy:
