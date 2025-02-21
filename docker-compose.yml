@@ -16,7 +16,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -155,6 +154,5 @@ services:
 
 networks:
      econsulta:
-volumes:
-  mysql_data:
+# volumes:
 #   redis_data:
