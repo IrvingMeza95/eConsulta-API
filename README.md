@@ -1,4 +1,4 @@
-![Logo de la App](./logo.png)
+![Logo de la App](./full_logo.png)
 
 # Proyecto eConsultas: Gestión de Consultas Médicas
 
