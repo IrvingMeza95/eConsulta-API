@@ -1,3 +1,5 @@
+![Logo de la App](./logo.png)
+
 # Proyecto eConsultas: Gestión de Consultas Médicas
 
 eConsultas es una aplicación web diseñada para gestionar de manera integral las operaciones de una clínica médica. 
@@ -22,14 +24,14 @@ el trabajo en equipo, replicando un entorno lo más parecido posible al mundo re
 ### Participantes del equipo
 
 - Irving Meza (Backend)
-    - Github: https://github.com/IrvingMeza95
-    - Linkedin: https://www.linkedin.com/in/irving-meza/
+    - [GitHub](https://github.com/IrvingMeza95)
+    - [Linkedin](https://www.linkedin.com/in/irving-meza/)
 - Francisco Carrizo (Fullstack)
-    - Github: https://github.com/FrancarriYT
-    - Linkedin: https://www.linkedin.com/in/francisco-carrizo-4016ab25b/
+    - [Github](https://github.com/FrancarriYT)
+    - [Linkedin](https://www.linkedin.com/in/francisco-carrizo-4016ab25b/)
 - Martín Sosa (Frontend)
-    - Github: https://github.com/martinsosafer
-    - Linkedin: https://www.linkedin.com/in/mart%C3%ADn-fernandez-53917b245/
+    - [Github](https://github.com/martinsosafer)
+    - [Linkedin](https://www.linkedin.com/in/mart%C3%ADn-fernandez-53917b245/)
 
 ## Requisitos previos
 
@@ -42,7 +44,6 @@ Antes de ejecutar este proyecto, asegúrese de tener instalados los siguientes p
 
 ### Variables de entorno
 
-# Variables necesarias para el correcto funcionamiento del servicioVerificacion
     - GMAIL_CLIENT_ID
     - GMAIL_CLIENT_SECRET
     - GMAIL_REFRESH_TOKEN
@@ -58,25 +59,17 @@ docker-compose up -d
 ```
 
 Este comando iniciará los contenedores en segundo plano. Para verificar que los contenedores están en ejecución, use:
-
-```
-docker ps
-```
+    - docker ps
 
 Si necesita detener la aplicación, ejecute:
-
-```
-docker-compose down
-```
+    -docker-compose down
 
 ## Uso de la imagen desde Docker Hub
 
 La aplicación utiliza imágenes públicas de Docker Hub. Puede descargar y ejecutar las imágenes manualmente con:
+    - docker pull irvingmeza95/econsulta-noombre_del_servicio:tag
+    - docker run -p puerto_del_servicio:puerto_del_servicio irvingmeza95/econsulta-noombre_del_servicio:tag
 
-```
-docker pull irvingmeza95/econsulta-noombre_del_servicio:tag
-docker run -p puerto_del_servicio:puerto_del_servicio irvingmeza95/econsulta-noombre_del_servicio:tag
-```
 
 ## Configuración de la base de datos
 
@@ -93,18 +86,17 @@ En caso de que el repositorio esté en privado, las colecciones se podrán encon
 
 Una vez creadas las tablas, es necesario subir las siguientes plantillas HTML desde la colección de Postman del `servicioVerificacion`:
 
-1. **CODIGO_VERIFICACION_DE_CORREO** con las variables: `nombreUsuario`, `urlAgregarPassword`, `fechaExpiracion`.
-2. **CORREO_RECUPERACION_PASSWORD** con las variables: `nombreUsuario`, `urlAgregarPassword`, `fechaExpiracion`.
-3. **ENVIO_DE_ARCHIVO** con las variables: `nombreUsuario`, `tipoArchivo`.
-
+    1. **CODIGO_VERIFICACION_DE_CORREO** con las variables: `nombreUsuario`, `urlAgregarPassword`, `fechaExpiracion`.
+    2. **CORREO_RECUPERACION_PASSWORD** con las variables: `nombreUsuario`, `urlAgregarPassword`, `fechaExpiracion`.
+    3. **ENVIO_DE_ARCHIVO** con las variables: `nombreUsuario`, `tipoArchivo`.
 
 ## Creación del primer Super Admin
 
 Una vez que la API esté en ejecución y se haya cargado la información previamente especificada, siga estos pasos:
 
-1. En la colección de Postman del servicio de usuarios, cree una nueva persona utilizando la request POST "crear" de la carpeta "persona". El atributo "tipoPersona" puede ser PACIENTE o MEDICO.
-2. Si la creación de la persona es correcta, recibirás un correo en el email proporcionado para completar la configuración de la contraseña de la nueva cuenta.
- 2.1. También puedes realizar este proceso desde la request PUT "agregar password", ubicada en la carpeta "usuarios" dentro de la misma colección.
-3. Una vez creada la contraseña de la cuenta, agrega el rol de SUPER_ADMIN al usuario ejecutando la siguiente consulta en la base de datos:
-    -- INSERT INTO roles_de_usuario (usuario_id, rol_id) VALUES ('', 3);
- 3.1. El valor de "usuario_id" se obtiene de la tabla "credenciales_de_usuario".
+    1. En la colección de Postman del servicio de usuarios, cree una nueva persona utilizando la request POST "crear" de la carpeta "persona". El atributo "tipoPersona" puede ser PACIENTE o MEDICO.
+    2. Si la creación de la persona es correcta, recibirás un correo en el email proporcionado para completar la configuración de la contraseña de la nueva cuenta.
+    2.1. También puedes realizar este proceso desde la request PUT "agregar password", ubicada en la carpeta "usuarios" dentro de la misma colección.
+    3. Una vez creada la contraseña de la cuenta, agrega el rol de SUPER_ADMIN al usuario ejecutando la siguiente consulta en la base de datos:
+        -- INSERT INTO roles_de_usuario (usuario_id, rol_id) VALUES ('', 3);
+    3.1. El valor de "usuario_id" se obtiene de la tabla "credenciales_de_usuario".
