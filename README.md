@@ -53,10 +53,7 @@ Antes de ejecutar este proyecto, asegúrese de tener instalados los siguientes p
 ## Ejecución
 
 Para levantar la aplicación junto con sus dependencias, ejecute el siguiente comando:
-
-```
-docker-compose up -d
-```
+    - docker-compose up -d
 
 Este comando iniciará los contenedores en segundo plano. Para verificar que los contenedores están en ejecución, use:
     - docker ps
@@ -69,7 +66,6 @@ Si necesita detener la aplicación, ejecute:
 La aplicación utiliza imágenes públicas de Docker Hub. Puede descargar y ejecutar las imágenes manualmente con:
     - docker pull irvingmeza95/econsulta-noombre_del_servicio:tag
     - docker run -p puerto_del_servicio:puerto_del_servicio irvingmeza95/econsulta-noombre_del_servicio:tag
-
 
 ## Configuración de la base de datos
 
