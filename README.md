@@ -80,3 +80,14 @@ Una vez creadas las tablas, es necesario subir las siguientes plantillas HTML de
 2. **CORREO_RECUPERACION_PASSWORD** con las variables: `nombreUsuario`, `urlAgregarPassword`, `fechaExpiracion`.
 3. **ENVIO_DE_ARCHIVO** con las variables: `nombreUsuario`, `tipoArchivo`.
 
+
+## Creación del primer Super Admin
+
+Una vez que la API esté en ejecución y se haya cargado la información previamente especificada, siga estos pasos:
+
+1. En la colección de Postman del servicio de usuarios, cree una nueva persona utilizando la request POST "crear" de la carpeta "persona". El atributo "tipoPersona" puede ser PACIENTE o MEDICO.
+2. Si la creación de la persona es correcta, recibirás un correo en el email proporcionado para completar la configuración de la contraseña de la nueva cuenta.
+ 2.1. También puedes realizar este proceso desde la request PUT "agregar password", ubicada en la carpeta "usuarios" dentro de la misma colección.
+3. Una vez creada la contraseña de la cuenta, agrega el rol de SUPER_ADMIN al usuario ejecutando la siguiente consulta en la base de datos:
+-- INSERT INTO roles_de_usuario (usuario_id, rol_id) VALUES ('', 3);
+ 3.1. El valor de "usuario_id" se obtiene de la tabla "credenciales_de_usuario".
