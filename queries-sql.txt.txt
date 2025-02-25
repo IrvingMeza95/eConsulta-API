@@ -43,10 +43,41 @@ VALUES
 (24,1,'13-14','13:45');
 
 /*query para insertar serviicos predeterminados*/
-INSERT INTO econsulta_db.servicios_medicos (id, descripcion, enabled,precio,tipo_servicio_id) 
+INSERT INTO econsulta_db.servicios_medicos (id, descripcion, enabled, precio, tipo_servicio_id) 
 VALUES 
-(1,'Consulta general',1,25,1),
-(2,'Consulta en cardiologia',1,150,2),
-(3,'Consulta en optanmologia',1,100,2),
-(4,'Examnes de sangre',1,15,3),
-(5,'Examenes de la vista',1,10,3);
+-- Consultas generales y especializadas
+(1, 'Consulta general', 1, 50, 1),
+(2, 'Consulta en cardiología', 1, 120, 2),
+(3, 'Consulta en oftalmología', 1, 90, 2),
+(12, 'Consulta en neurología', 1, 180, 2),
+(13, 'Consulta en dermatología', 1, 100, 2),
+
+-- Exámenes médicos
+(4, 'Exámenes de sangre', 1, 40, 3),
+(5, 'Exámenes de la vista', 1, 70, 3),
+(14, 'Resonancia magnética', 1, 1000, 3),
+(15, 'Electrocardiograma', 1, 150, 3),
+
+-- Cirugías
+(6, 'Cirugía de apendicitis', 1, 5000, 4),
+(7, 'Cirugía de cataratas', 1, 4000, 4),
+(8, 'Cirugía ortopédica de rodilla', 1, 8000, 4),
+(16, 'Cirugía de bypass coronario', 1, 15000, 4),
+(17, 'Implante de marcapasos', 1, 12000, 4),
+(18, 'Cirugía de implante coclear', 1, 25000, 4),
+(21, 'Cirugía LASIK para corrección visual', 1, 2500, 4),
+(22, 'Cirugía de desprendimiento de retina', 1, 7000, 4),
+(23, 'Cirugía para extracción de tumor cerebral', 1, 30000, 4),
+(24, 'Neurocirugía para epilepsia', 1, 20000, 4),
+(25, 'Cirugía de extracción de melanoma en piel', 1, 5000, 4),
+
+-- Terapias y tratamientos
+(9, 'Terapia física de rehabilitación', 1, 60, 5),
+(10, 'Tratamiento de quimioterapia (por sesión)', 1, 2500, 5),
+(11, 'Sesión de hemodiálisis', 1, 300, 5),
+(19, 'Rehabilitación cardíaca', 1, 100, 5),
+(20, 'Terapia auditiva post-implante coclear', 1, 80, 5),
+(26, 'Terapia de estimulación visual post-cirugía', 1, 90, 5),
+(27, 'Rehabilitación neurológica post-ACV', 1, 120, 5),
+(28, 'Tratamiento con láser para cicatrices en piel', 1, 150, 5);
+
